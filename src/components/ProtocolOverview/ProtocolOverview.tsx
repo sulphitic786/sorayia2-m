@@ -6,7 +6,7 @@ const ProtocolOverview = () => {
   return (
     <div className={styles.container}>
       <section className={styles.protocolSection}>
-        <h2 className={styles.title}>SORIAYA.COM <span className={styles.gradient}>PROTOCOL</span></h2>
+        <h2 className={styles.title}>SORAYIA.COM <span className={styles.gradient}>PROTOCOL</span></h2>
         <p className={styles.subtitle}>
           Digital Avatar Provider Infrastructure
         </p>
