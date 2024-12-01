@@ -64,6 +64,9 @@ const Integration = () => {
             <div
               className={styles.questionRow}
               onClick={() => toggleAnswer(index)}
+              role="button"
+              aria-expanded={activeIndex === index}
+              tabIndex={0}
             >
               <h2 className={styles.question}>{item.question}</h2>
               <FaChevronDown 
@@ -75,14 +78,18 @@ const Integration = () => {
               />
             </div>
             <div
-              ref={(el) => (contentRefs.current[index] = el)}
-              style={{
-                height: activeIndex === index ? 'auto' : '0',
-                visibility: activeIndex === index ? 'visible' : 'hidden'
+              ref={(el) => {
+                contentRefs.current[index] = el; // No return value, just update the reference
               }}
               className={`${styles.answerContainer} ${
                 activeIndex === index ? styles.show : ""
               }`}
+              style={{
+                maxHeight: activeIndex === index ? '500px' : '0', // maxHeight animation
+                visibility: activeIndex === index ? 'visible' : 'hidden',
+                overflow: 'hidden', // Prevent overflow while transitioning
+                transition: 'max-height 0.3s ease, visibility 0.3s ease'
+              }}
             >
               <p className={styles.answer}>{item.answer}</p>
             </div>
