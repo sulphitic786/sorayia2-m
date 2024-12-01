@@ -22,7 +22,7 @@ const ProtocolOverview = () => {
       </section>
       <section className={styles.useCasesSection}>
         <h3 className={styles.useCasesTitle}>
-          <span className={styles.gradient}>CAS</span> D'UTILISATION
+          <span className={styles.gradient}>USE</span> CASE
         </h3>
         <p className={styles.useCasesSubtitle}>
           Here are some of the ways you can use your Digital Avatar.
