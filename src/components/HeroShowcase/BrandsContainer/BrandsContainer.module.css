@@ -58,16 +58,17 @@
 .brandsInner {
   display: flex;
   align-items: center;
-  gap: 50px;
+  gap: 80px;
   will-change: transform;
   position: relative;
   z-index: 2;
+  padding: 0 40px;
 }
 
 .brandContainer {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
   filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
 }
 
