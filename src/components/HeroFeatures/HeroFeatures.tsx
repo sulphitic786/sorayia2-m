@@ -27,7 +27,7 @@ const HeroFeatures = () => {
   ];
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} containerInfinite`}>
       <h2 className={styles.heading}>What's up Heroes</h2>
       <h3 className={styles.subHeading}>
         Everything you need for <span className={styles.gradient}>AI</span> Digital Avatar

@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700;800&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 *,
 *::before,
@@ -30,7 +33,6 @@ body > * {
 }
 
 header {
-  background-color: #0070f3;
   color: #fff;
   padding: 1rem 0;
   text-align: center;

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import styles from "./HowItWorks.module.css";
 
@@ -48,16 +48,17 @@ const images = [
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(false);
 
+  
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-
+    
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+  
   return isMobile;
 };
 
@@ -65,6 +66,43 @@ const HowItWorks: React.FC = () => {
   const isMobile = useIsMobile();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [currentImage, setCurrentImage] = useState(0);
+  const [isInView, setIsInView] = useState(false); // Track visibility state
+
+  const sectionRef = useRef<HTMLDivElement | null>(null); // Ref for the section container
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsInView(true); // Section is in view
+        } else {
+          setIsInView(false); // Section is out of view
+        }
+      },
+      { threshold: 0.1 } // Trigger when 50% of the section is visible
+    );
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current); // Observe the section
+    }
+    // Clean up observer
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+  
+  // Apply dynamic background color change to the container when in view
+  useEffect(() => {
+    if (sectionRef.current) {
+      const container = document.querySelector('.containerInfinite') as HTMLElement;
+
+      if (container) {
+        container.style.backgroundColor = isInView ? "#000000" : "#FFFFFF"; // Set dark or light background
+        container.style.transition = "background-color 0.5s ease-in-out"; // Smooth transition for background color
+      }
+    }
+  }, [isInView]);
 
   const toggleStep = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index);
@@ -78,7 +116,7 @@ const HowItWorks: React.FC = () => {
   };
 
   return (
-    <div className={styles.howItWorks}>
+    <div ref={sectionRef} className={styles.howItWorks}>
       <div className={`${styles.col} ${styles.colQuestions}`}>
         <h2 className={styles.title}><span className={styles.gradient}>HOW</span> IT WORKS</h2>
         <p className={styles.subtitle}>

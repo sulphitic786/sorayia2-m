@@ -94,7 +94,7 @@ const smallerFeatures = [
 
 const PowerfulFeatures = () => {
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} powerfulSection`}>
       <div className={styles.innerContent}>
         <h2 className={styles.header}>POWERFUL <span className={styles.gradient}>FEATURES</span></h2>
         <p className={styles.subheader}>

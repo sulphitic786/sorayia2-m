@@ -1,10 +1,49 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./ProtocolOverview.module.css";
 import Image from "next/image";
 
 const ProtocolOverview = () => {
+  const [isInView, setIsInView] = useState(false); // Track visibility state
+
+  const sectionRef = useRef<HTMLDivElement | null>(null); // Ref for the section container
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsInView(true); // Section is in view
+        } else {
+          setIsInView(false); // Section is out of view
+        }
+      },
+      { threshold: 0.1 } // Trigger when 50% of the section is visible
+    );
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current); // Observe the section
+    }
+    // Clean up observer
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+  // Apply dynamic background color change to the container when in view
+  useEffect(() => {
+    if (sectionRef.current) {
+      const container = document.querySelector('.powerfulSection') as HTMLElement;
+
+      if (container) {
+        container.style.backgroundColor = isInView ? "#000000" : "#FFFFFF"; // Set dark or light background
+        container.style.transition = "background-color 0.5s ease-in-out"; // Smooth transition for background color
+      }
+    }
+  }, [isInView]);
+
   return (
-    <div className={styles.container}>
+    <div ref={sectionRef} className={styles.container}>
       <section className={styles.protocolSection}>
         <h2 className={styles.title}>SORAYIA.COM <span className={styles.gradient}>PROTOCOL</span></h2>
         <p className={styles.subtitle}>
